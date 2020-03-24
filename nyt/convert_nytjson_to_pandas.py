@@ -67,7 +67,6 @@ def parse_doc_item(doc, item):
         value = value['main']
     elif item == 'keywords':
         value = [ u['value'] for u in value]
-
     return value
 
 def parse_doc(doc) :

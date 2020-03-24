@@ -21,17 +21,14 @@ from handy_tools import daterange
 query = 'coronavirus'
 start_date = dt.date(2019, 3, 13)
 end_date = dt.date(2020, 3, 23)
-filename_template = "nyt_data_{0}.txt"
 
-#------------------------------------------------------------------------- 
-preamble = 'https://api.nytimes.com/svc/search/v2/articlesearch.json?'
-search_base = "q={0}&fq={1}&page={2}&api-key={3}"
-nyt_api = NYTapi( preamble, search_base, query, nyt_key )
+#-------------------------------------------------------------------------
+filename_template = "nyt_data_{0}.txt" 
+nyt_api = NYTapi( query, nyt_key )
 for date in daterange( start_date, end_date ):
     nyt_api.set_date( date )
     with open(filename_template.format( date ), 'w') as f:
         f.write(nyt_api.url_pretty())
-    for response_text in nyt_api.iterate_search_over_pages():
-        with open(filename, 'a') as f:
+    	for response_text in nyt_api.iterate_search_over_pages():
             f.write( response_text )
 #------------------------------------------------------------------------- 
